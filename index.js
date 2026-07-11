@@ -1,14 +1,17 @@
-const { WAConnection, MessageType } = require('@adiwajshing/baileys');
+const { makeWASocket, MessageType } = require('@adiwajshing/baileys');
 const qrcode = require('qrcode-terminal');
 
-const conn = new WAConnection();
+const conn = makeWASocket();
 
-conn.on('qr', (qr) => {
+conn.ev.on('qr', (qr) => {
     qrcode.generate(qr, { small: true });
 });
 
-conn.on('open', () => {
-    console.log('Connection established!');
+conn.ev.on('connection.update', (update) => {
+    const { connection } = update;
+    if (connection === 'open') {
+        console.log('Connection established!');
+    }
 });
 
 async function manageGroup(action, groupId, participant) {
@@ -35,7 +38,7 @@ async function manageGroup(action, groupId, participant) {
             // Implement account access logic
             break;
         case 'send':
-            await conn.sendMessage(groupId, 'Your message here', MessageType.text);
+            await conn.sendMessage(groupId, { text: 'Your message here' });
             break;
         case 'receive':
             // Implement message receiving logic
@@ -45,4 +48,4 @@ async function manageGroup(action, groupId, participant) {
     }
 }
 
-conn.connect();
+await conn.connect();
