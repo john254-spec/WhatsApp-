@@ -1,4 +1,4 @@
-const { makeWASocket, MessageType } = require('@adiwajshing/baileys');
+const { makeWASocket, MessageType } = require('@whiskeysockets/baileys');
 const qrcode = require('qrcode-terminal');
 
 const conn = makeWASocket();
@@ -38,14 +38,4 @@ async function manageGroup(action, groupId, participant) {
             // Implement account access logic
             break;
         case 'send':
-            await conn.sendMessage(groupId, { text: 'Your message here' });
-            break;
-        case 'receive':
-            // Implement message receiving logic
-            break;
-        default:
-            console.log('Invalid action');
-    }
-}
-
-await conn.connect();
+            await conn.send
