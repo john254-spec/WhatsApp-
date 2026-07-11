@@ -38,4 +38,4 @@ async function manageGroup(action, groupId, participant) {
             // Implement account access logic
             break;
         case 'send':
-            await conn.send
+            await conn.send;
