@@ -1,4 +1,3 @@
-
 const { WAConnection, MessageType } = require('@adiwajshing/baileys');
 const qrcode = require('qrcode-terminal');
 
